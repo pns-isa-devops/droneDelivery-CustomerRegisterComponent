@@ -5,6 +5,8 @@ import fr.unice.polytech.isa.dd.CustomerRegisterBean;
 import fr.unice.polytech.isa.dd.CustomerRegistration;
 import fr.unice.polytech.isa.dd.entities.*;
 import fr.unice.polytech.isa.dd.entities.Package;
+import fr.unice.polytech.isa.dd.exceptions.AlreadyExistingCustomerException;
+import fr.unice.polytech.isa.dd.exceptions.UnknownCustomerException;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.ClassLoaderAsset;
@@ -17,6 +19,8 @@ public abstract class AbstractCustomerRegisterTest {
     public static WebArchive createDeployement(){
         return ShrinkWrap.create(WebArchive.class)
                 .addAsWebInfResource(EmptyAsset.INSTANCE,"beans.xml")
+                .addPackage(AlreadyExistingCustomerException.class.getPackage())
+                .addPackage(UnknownCustomerException.class.getPackage())
                 .addPackage(CustomerRegisterBean.class.getPackage())
                 .addPackage(CustomerRegistration.class.getPackage())
                 .addPackage(CustomerFinder.class.getPackage())

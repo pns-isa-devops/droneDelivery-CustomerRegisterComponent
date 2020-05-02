@@ -1,7 +1,8 @@
 package fr.unice.polytech.isa.dd;
 
 import fr.unice.polytech.isa.dd.entities.Customer;
-import fr.unice.polytech.isa.dd.entities.Database;
+import fr.unice.polytech.isa.dd.exceptions.AlreadyExistingCustomerException;
+import fr.unice.polytech.isa.dd.exceptions.UnknownCustomerException;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -19,24 +20,27 @@ public class CustomerRegisterBean implements CustomerRegistration, CustomerFinde
     @PersistenceContext private EntityManager entityManager;
 
     @Override
-    public Boolean register(String customer_lastname, String customer_firstname, String customer_address) {
-        //TODO
-        Optional<Customer> customer = findCustomerByName(customer_firstname+" "+customer_lastname);
-        if(customer.isPresent()) return false;
-        Customer new_customer = new Customer(customer_firstname+" "+customer_lastname,customer_address);
+    public Boolean register(String customer_lastname, String customer_firstname, String customer_address) throws AlreadyExistingCustomerException {
+        Optional<Customer> customer = findCustomerByNameInDatabase(customer_lastname+" "+customer_firstname);
+        if(customer.isPresent()){
+            throw  new AlreadyExistingCustomerException(customer_lastname+" "+customer_firstname);
+        }
+        Customer new_customer = new Customer(customer_lastname+" "+customer_firstname,customer_address);
         entityManager.persist(new_customer);
         return true;
-        //listcutomer.add(customer);
     }
 
 
     @Override
-    public Customer findByName(String customer_name) {
-        Optional<Customer> customer = findCustomerByName(customer_name);
-        return customer.orElse(null);
+    public Customer findCustomerByName(String customer_name) throws UnknownCustomerException {
+        Optional<Customer> customer = findCustomerByNameInDatabase(customer_name);
+        if(customer.isPresent()){
+            return customer.get();
+        }
+        else throw new UnknownCustomerException(customer_name);
     }
 
-    public Optional<Customer> findCustomerByName(String name) {
+    private Optional<Customer> findCustomerByNameInDatabase(String name) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Customer> criteria = builder.createQuery(Customer.class);
         Root<Customer> root =  criteria.from(Customer.class);
