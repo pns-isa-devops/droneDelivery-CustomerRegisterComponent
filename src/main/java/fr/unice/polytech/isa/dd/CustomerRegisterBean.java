@@ -20,7 +20,7 @@ public class CustomerRegisterBean implements CustomerRegistration, CustomerFinde
     @PersistenceContext private EntityManager entityManager;
 
     @Override
-    public Boolean register(String customer_lastname, String customer_firstname, String customer_address) throws AlreadyExistingCustomerException {
+    public Boolean registerCustomer(String customer_lastname, String customer_firstname, String customer_address) throws AlreadyExistingCustomerException {
         Optional<Customer> customer = findCustomerByNameInDatabase(customer_lastname+" "+customer_firstname);
         if(customer.isPresent()){
             throw  new AlreadyExistingCustomerException(customer_lastname+" "+customer_firstname);

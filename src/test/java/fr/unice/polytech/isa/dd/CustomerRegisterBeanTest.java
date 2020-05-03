@@ -44,7 +44,7 @@ public class CustomerRegisterBeanTest extends AbstractCustomerRegisterTest {
 
     @Test
     public void register() throws AlreadyExistingCustomerException, UnknownCustomerException {
-        customerRegistration.register("Messan","Aurore","03 Rue soutrane");
+        customerRegistration.registerCustomer("Messan","Aurore","03 Rue soutrane");
         assertEquals(customer1.getName(), entityManager.find(Customer.class, customer1.getId()).getName());
         customer1 = customerFinder.findCustomerByName("Messan Aurore");
         customer1 = entityManager.find(Customer.class, customer1.getId());

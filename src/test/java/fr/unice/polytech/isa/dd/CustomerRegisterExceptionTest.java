@@ -47,7 +47,7 @@ public class CustomerRegisterExceptionTest extends AbstractCustomerRegisterTest 
 
     @Test(expected = AlreadyExistingCustomerException.class)
     public void dontRegisterCustomer() throws AlreadyExistingCustomerException {
-        customerRegistration.register("Messan","Aurore","3 rue something");
+        customerRegistration.registerCustomer("Messan","Aurore","3 rue something");
     }
 
     @Test(expected = UnknownCustomerException.class)
