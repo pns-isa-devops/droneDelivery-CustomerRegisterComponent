@@ -43,7 +43,6 @@
             <name>dronedelivery-releases</name>
             <url>http://dronedelivery-teamd.francecentral.cloudapp.azure.com:8081/artifactory/libs-release-local</url>
             <!--<url>http://localhost:8081/artifactory/libs-release-local</url>-->
-
         </repository>
 
         <snapshotRepository>
