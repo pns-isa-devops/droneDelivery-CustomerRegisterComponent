@@ -9,4 +9,5 @@ import javax.ejb.Local;
 public interface CustomerFinder {
 
     Customer findCustomerByName(String customer_name) throws UnknownCustomerException;
+    Boolean deleteAll();
 }
