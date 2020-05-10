@@ -17,6 +17,7 @@
 * L'enregistrement et la recherche d'un client sont les principales fonctionnalités de ce composant; ils font appel au `EntityManager` par le biais de l'annotation **`@PersitenceContexte`**.
 Ce dernier recherche ou ajoute dans la base de données le client donné selon la définition des attributs de la classe `Customer`.
 * Il utlise deux bases de données `HyperSQL Database (HSQLDB)`. Une pour les **`tests`** et une pour la **`production`**.
+*  Le composant est  `@Stateless` donc ne conserve aucune valeur d'une action à une autre
 
   ## Perspectives
   - [ ] Lancer Sonar dans le projet   
